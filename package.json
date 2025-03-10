@@ -12,13 +12,14 @@
     "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types",
     "lint": "cross-env NODE_OPTIONS=--no-deprecation next lint",
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
-    "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
+    "start": "npm run payload migrate && cross-env NODE_OPTIONS=--no-deprecation next start",
     "test": "tsx --no-warnings --env-file=.env ./test.ts"
   },
   "dependencies": {
     "@langchain/core": "^0.3.42",
     "@langchain/openai": "^0.4.4",
     "@langchain/textsplitters": "^0.1.0",
+    "@payloadcms/db-postgres": "^3.27.0",
     "@payloadcms/db-sqlite": "latest",
     "@payloadcms/next": "latest",
     "@payloadcms/payload-cloud": "latest",
