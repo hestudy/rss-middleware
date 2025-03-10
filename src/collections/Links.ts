@@ -2,6 +2,9 @@ import type { CollectionConfig } from 'payload'
 
 export const Links: CollectionConfig = {
   slug: 'links',
+  admin: {
+    useAsTitle: 'name',
+  },
   fields: [
     {
       name: 'name',
@@ -14,8 +17,18 @@ export const Links: CollectionConfig = {
       required: true,
     },
     {
+      name: 'data',
+      type: 'json',
+    },
+    {
       name: 'language',
       type: 'text',
+      required: true,
+    },
+    {
+      name: 'scrapyFull',
+      type: 'checkbox',
+      defaultValue: false,
       required: true,
     },
     {
