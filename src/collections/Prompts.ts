@@ -2,6 +2,9 @@ import type { CollectionConfig } from 'payload'
 
 export const Prompts: CollectionConfig = {
   slug: 'prompts',
+  admin: {
+    useAsTitle: 'name',
+  },
   fields: [
     {
       name: 'name',
@@ -10,7 +13,7 @@ export const Prompts: CollectionConfig = {
     },
     {
       name: 'prompt',
-      type: 'text',
+      type: 'textarea',
       required: true,
     },
   ],

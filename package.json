@@ -15,21 +15,27 @@
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start"
   },
   "dependencies": {
+    "@langchain/core": "^0.3.42",
+    "@langchain/openai": "^0.4.4",
+    "@langchain/textsplitters": "^0.1.0",
     "@payloadcms/db-sqlite": "latest",
     "@payloadcms/next": "latest",
     "@payloadcms/payload-cloud": "latest",
     "@payloadcms/richtext-lexical": "latest",
     "cross-env": "^7.0.3",
     "graphql": "^16.8.1",
+    "markdown-it": "^14.1.0",
     "next": "15.2.0",
     "payload": "latest",
     "react": "19.0.0",
     "react-dom": "19.0.0",
+    "rss-parser": "^3.13.0",
     "sharp": "0.32.6",
     "zod": "^3.24.2"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
+    "@types/markdown-it": "^14.1.2",
     "@types/node": "^22.5.4",
     "@types/react": "19.0.10",
     "@types/react-dom": "19.0.4",

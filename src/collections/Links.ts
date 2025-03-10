@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
 export const Links: CollectionConfig = {
-  slug: 'prompts',
+  slug: 'links',
   fields: [
     {
       name: 'name',
@@ -52,11 +52,13 @@ export const Links: CollectionConfig = {
       name: 'model',
       type: 'relationship',
       relationTo: 'models',
+      required: true,
     },
     {
       name: 'prompt',
       type: 'relationship',
       relationTo: 'prompts',
+      required: true,
     },
   ],
 }

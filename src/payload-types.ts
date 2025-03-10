@@ -70,6 +70,7 @@ export interface Config {
     media: Media;
     models: Model;
     prompts: Prompt;
+    links: Link;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -80,6 +81,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     models: ModelsSelect<false> | ModelsSelect<true>;
     prompts: PromptsSelect<false> | PromptsSelect<true>;
+    links: LinksSelect<false> | LinksSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -177,6 +179,22 @@ export interface Prompt {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "links".
+ */
+export interface Link {
+  id: number;
+  name: string;
+  url: string;
+  language: string;
+  type: 'rss' | 'url';
+  middleware: 'translate' | 'summary';
+  model: number | Model;
+  prompt: number | Prompt;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -197,6 +215,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'prompts';
         value: number | Prompt;
+      } | null)
+    | ({
+        relationTo: 'links';
+        value: number | Link;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -290,6 +312,21 @@ export interface ModelsSelect<T extends boolean = true> {
  */
 export interface PromptsSelect<T extends boolean = true> {
   name?: T;
+  prompt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "links_select".
+ */
+export interface LinksSelect<T extends boolean = true> {
+  name?: T;
+  url?: T;
+  language?: T;
+  type?: T;
+  middleware?: T;
+  model?: T;
   prompt?: T;
   updatedAt?: T;
   createdAt?: T;
