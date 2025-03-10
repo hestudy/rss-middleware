@@ -73,5 +73,11 @@ export const Links: CollectionConfig = {
       relationTo: 'prompts',
       required: true,
     },
+    {
+      name: 'rssItems',
+      type: 'join',
+      collection: 'rssItems',
+      on: 'rss',
+    },
   ],
 }

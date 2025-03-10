@@ -77,7 +77,11 @@ export interface Config {
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
-  collectionsJoins: {};
+  collectionsJoins: {
+    links: {
+      rssItems: 'rssItems';
+    };
+  };
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
@@ -206,6 +210,11 @@ export interface Link {
   middleware: 'translate' | 'summary';
   model: number | Model;
   prompt: number | Prompt;
+  rssItems?: {
+    docs?: (number | RssItem)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -477,6 +486,7 @@ export interface LinksSelect<T extends boolean = true> {
   middleware?: T;
   model?: T;
   prompt?: T;
+  rssItems?: T;
   updatedAt?: T;
   createdAt?: T;
 }
