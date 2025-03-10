@@ -194,15 +194,19 @@ export default buildConfig({
         },
       } as WorkflowConfig<'rss-workflow'>,
     ],
-    // autoRun: [
-    //   {
-    //     cron: '0 * * * *',
-    //     limit: 100,
-    //     queue: 'hourly',
-    //   },
-    // ],
-    // shouldAutoRun: async (payload) => {
-    //   return true
-    // },
+    autoRun: [
+      {
+        cron: '0 * * * *',
+        limit: 1,
+        queue: 'rss',
+      },
+    ],
+    shouldAutoRun: async (payload) => {
+      await payload.jobs.queue({
+        workflow: 'rss-workflow',
+        input: {},
+      })
+      return true
+    },
   },
 })
