@@ -104,7 +104,14 @@ export interface Config {
     collection: 'users';
   };
   jobs: {
-    tasks: unknown;
+    tasks: {
+      fetchAndSaveRss: TaskFetchAndSaveRss;
+      translateRss: TaskTranslateRss;
+      inline: {
+        input: unknown;
+        output: unknown;
+      };
+    };
     workflows: {
       'rss-workflow': WorkflowRssWorkflow;
     };
@@ -301,7 +308,7 @@ export interface PayloadJob {
     | {
         executedAt: string;
         completedAt: string;
-        taskSlug: 'inline';
+        taskSlug: 'inline' | 'fetchAndSaveRss' | 'translateRss';
         taskID: string;
         input?:
           | {
@@ -335,7 +342,7 @@ export interface PayloadJob {
       }[]
     | null;
   workflowSlug?: 'rss-workflow' | null;
-  taskSlug?: 'inline' | null;
+  taskSlug?: ('inline' | 'fetchAndSaveRss' | 'translateRss') | null;
   queue?: string | null;
   waitUntil?: string | null;
   processing?: boolean | null;
@@ -568,6 +575,22 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TaskFetchAndSaveRss".
+ */
+export interface TaskFetchAndSaveRss {
+  input?: unknown;
+  output?: unknown;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TaskTranslateRss".
+ */
+export interface TaskTranslateRss {
+  input?: unknown;
+  output?: unknown;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

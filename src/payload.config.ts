@@ -13,7 +13,9 @@ import { Models } from './collections/Models'
 import { Prompts } from './collections/Prompts'
 import { RssItems } from './collections/RssItems'
 import { Users } from './collections/Users'
-import { rssWorkflow } from './workflow/rssWorkflow'
+import { fetchAndSaveRss } from './tasks/fetchAndSaveRss'
+import { translateRss } from './tasks/translateRss'
+import { rssWorkflow } from './workflows/rssWorkflow'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -45,28 +47,36 @@ export default buildConfig({
     // storage-adapter-placeholder
   ],
   jobs: {
-    tasks: [],
+    tasks: [fetchAndSaveRss, translateRss],
     workflows: [rssWorkflow],
     autoRun: [
       {
         cron: '0 * * * *',
-        queue: 'rss',
       },
     ],
     shouldAutoRun: async (payload) => {
       const { totalDocs } = await payload.count({
         collection: 'payload-jobs',
         where: {
+          workflowSlug: {
+            equals: 'rss-workflow',
+          },
           processing: {
             equals: true,
           },
         },
       })
+      payload.logger.info('exisst rss jobs:' + totalDocs)
       if (totalDocs === 0) {
-        await payload.jobs.queue({
+        const job = await payload.jobs.queue({
           workflow: 'rss-workflow',
           input: {},
         })
+        payload.logger.info('queued rss job')
+        payload.jobs.runByID({
+          id: job.id,
+        })
+        payload.logger.info('run rss job')
       }
       return totalDocs === 0
     },

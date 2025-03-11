@@ -80,7 +80,7 @@ export const Links: CollectionConfig = {
       on: 'rss',
     },
     {
-      name: 'action',
+      name: 'rss',
       type: 'ui',
       admin: {
         components: {

@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { number } from 'zod'
 
 export const RssItems: CollectionConfig = {
   slug: 'rssItems',
@@ -22,7 +23,8 @@ export const RssItems: CollectionConfig = {
     },
     {
       name: 'fullContent',
-      type: 'textarea',
+      type: 'code',
+      maxLength: Number.MAX_SAFE_INTEGER,
     },
     {
       name: 'pubDate',
