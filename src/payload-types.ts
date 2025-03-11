@@ -217,6 +217,7 @@ export interface Link {
   middleware: 'translate' | 'summary';
   model: number | Model;
   prompt: number | Prompt;
+  enabled?: boolean | null;
   rssItems?: {
     docs?: (number | RssItem)[];
     hasNextPage?: boolean;
@@ -494,6 +495,7 @@ export interface LinksSelect<T extends boolean = true> {
   middleware?: T;
   model?: T;
   prompt?: T;
+  enabled?: T;
   rssItems?: T;
   updatedAt?: T;
   createdAt?: T;

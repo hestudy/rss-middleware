@@ -19,6 +19,9 @@ export const Links: CollectionConfig = {
     {
       name: 'data',
       type: 'json',
+      admin: {
+        hidden: true,
+      },
     },
     {
       name: 'language',
@@ -72,6 +75,11 @@ export const Links: CollectionConfig = {
       type: 'relationship',
       relationTo: 'prompts',
       required: true,
+    },
+    {
+      name: 'enabled',
+      type: 'checkbox',
+      defaultValue: true,
     },
     {
       name: 'rssItems',

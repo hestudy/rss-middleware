@@ -21,6 +21,12 @@ export const translateRss = {
             data: {
               exists: false,
             },
+            'rss.middleware': {
+              equals: 'translate',
+            },
+            'rss.enabled': {
+              equals: true,
+            },
           },
         ],
       },
