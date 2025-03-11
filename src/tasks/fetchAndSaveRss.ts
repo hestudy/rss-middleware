@@ -69,6 +69,7 @@ export const fetchAndSaveRss = {
                     }
                   },
                   retries: 3,
+                  input: {},
                 })
               }
               return {
@@ -76,6 +77,7 @@ export const fetchAndSaveRss = {
               }
             },
             retries: 3,
+            input: {},
           })
         }
       }

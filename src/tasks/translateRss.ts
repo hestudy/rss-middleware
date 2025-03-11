@@ -69,6 +69,7 @@ export const translateRss = {
                     output: {},
                   }
                 },
+                input: {},
               })
             }
 
@@ -95,6 +96,7 @@ export const translateRss = {
                 output: {},
               }
             },
+            input: {},
           })
 
           if (rss.scrapyFull) {
@@ -122,6 +124,7 @@ export const translateRss = {
           }
         },
         retries: 3,
+        input: {},
       })
     }
 
