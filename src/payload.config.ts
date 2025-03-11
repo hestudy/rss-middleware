@@ -197,7 +197,6 @@ export default buildConfig({
     autoRun: [
       {
         cron: '0 * * * *',
-        limit: 1,
         queue: 'rss',
       },
     ],
@@ -216,7 +215,7 @@ export default buildConfig({
           input: {},
         })
       }
-      return true
+      return totalDocs === 0
     },
   },
 })
