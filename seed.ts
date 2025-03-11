@@ -20,6 +20,7 @@ Translate into {language}:
 {content}
 """
         `,
+        middleware: 'translate',
       },
     })
   }
