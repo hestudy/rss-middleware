@@ -79,5 +79,14 @@ export const Links: CollectionConfig = {
       collection: 'rssItems',
       on: 'rss',
     },
+    {
+      name: 'action',
+      type: 'ui',
+      admin: {
+        components: {
+          Cell: './components/Links/Cell',
+        },
+      },
+    },
   ],
 }

@@ -2,23 +2,17 @@
 import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
-import { buildConfig, WorkflowConfig } from 'payload'
+import { buildConfig } from 'payload'
 import sharp from 'sharp'
 import { fileURLToPath } from 'url'
 
 import { postgresAdapter } from '@payloadcms/db-postgres'
-import Parser from 'rss-parser'
 import { Links } from './collections/Links'
 import { Media } from './collections/Media'
 import { Models } from './collections/Models'
 import { Prompts } from './collections/Prompts'
 import { RssItems } from './collections/RssItems'
 import { Users } from './collections/Users'
-import { Link, Model, Prompt } from './payload-types'
-import { fetchRss } from './utils/fetchRss'
-import { linkToMd } from './utils/linkToMd'
-import { mdToHtml } from './utils/mdToHtml'
-import { textTranslate } from './utils/textTranslate'
 import { rssWorkflow } from './workflow/rssWorkflow'
 
 const filename = fileURLToPath(import.meta.url)
@@ -29,6 +23,9 @@ export default buildConfig({
     user: Users.slug,
     importMap: {
       baseDir: path.resolve(dirname),
+    },
+    components: {
+      beforeDashboard: ['./components/beforeDashboard/Queue'],
     },
   },
   collections: [Users, Media, Models, Prompts, Links, RssItems],
