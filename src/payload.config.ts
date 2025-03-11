@@ -28,6 +28,10 @@ export default buildConfig({
     },
     components: {
       beforeDashboard: ['./components/beforeDashboard/Queue'],
+      graphics: {
+        Icon: './components/graphics/Icon',
+        Logo: './components/graphics/Icon',
+      },
     },
   },
   collections: [Users, Media, Models, Prompts, Links, RssItems],
