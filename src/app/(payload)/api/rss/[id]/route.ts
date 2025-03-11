@@ -30,7 +30,8 @@ export const GET = async (
             exists: true,
           },
         },
-        count: false,
+        limit: 20,
+        page: 1,
       },
     },
   })
