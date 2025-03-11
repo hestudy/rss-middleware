@@ -69,7 +69,7 @@ Translate into {language}:
   })
 
   for (const item of queueList.docs) {
-    await payload.jobs.runByID({
+    payload.jobs.runByID({
       id: item.id,
     })
   }
