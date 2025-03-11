@@ -1,5 +1,4 @@
 import type { CollectionConfig } from 'payload'
-import { number } from 'zod'
 
 export const RssItems: CollectionConfig = {
   slug: 'rssItems',

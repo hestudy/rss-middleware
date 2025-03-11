@@ -16,5 +16,21 @@ export const Prompts: CollectionConfig = {
       type: 'textarea',
       required: true,
     },
+    {
+      name: 'middleware',
+      type: 'select',
+      options: [
+        {
+          label: 'translate',
+          value: 'translate',
+        },
+        {
+          label: 'summary',
+          value: 'summary',
+        },
+      ],
+      defaultValue: 'translate',
+      required: true,
+    },
   ],
 }

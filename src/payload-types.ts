@@ -191,6 +191,7 @@ export interface Prompt {
   id: number;
   name: string;
   prompt: string;
+  middleware: 'translate' | 'summary';
   updatedAt: string;
   createdAt: string;
 }
@@ -478,6 +479,7 @@ export interface ModelsSelect<T extends boolean = true> {
 export interface PromptsSelect<T extends boolean = true> {
   name?: T;
   prompt?: T;
+  middleware?: T;
   updatedAt?: T;
   createdAt?: T;
 }
