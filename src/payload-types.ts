@@ -244,6 +244,7 @@ export interface RssItem {
     | boolean
     | null;
   fullContent?: string | null;
+  pubDate?: string | null;
   rss: number | Link;
   updatedAt: string;
   createdAt: string;
@@ -499,6 +500,7 @@ export interface RssItemsSelect<T extends boolean = true> {
   origin?: T;
   data?: T;
   fullContent?: T;
+  pubDate?: T;
   rss?: T;
   updatedAt?: T;
   createdAt?: T;

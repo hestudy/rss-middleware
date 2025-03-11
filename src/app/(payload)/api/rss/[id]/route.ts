@@ -32,6 +32,7 @@ export const GET = async (
         },
         limit: 20,
         page: 1,
+        sort: '-pubDate',
       },
     },
   })
@@ -48,27 +49,19 @@ export const GET = async (
       description: data.description!,
       image_url: data.image?.url,
     })
-    link.rssItems?.docs
-      ?.sort((a, b) => {
-        const aItem = a as RssItem
-        const bItem = b as RssItem
-        const aRss = aItem.data as Parser.Item
-        const bRss = bItem.data as Parser.Item
-        return dayjs(bRss.pubDate).unix() - dayjs(aRss.pubDate).unix()
+    link.rssItems?.docs?.forEach((i) => {
+      const item = i as RssItem
+      const rssItem = item.data as Parser.Item
+      feed.item({
+        title: rssItem.title!,
+        description: rssItem.content!,
+        date: rssItem.pubDate!,
+        url: rssItem.link!,
+        categories: rssItem.categories,
+        enclosure: rssItem.enclosure,
+        guid: rssItem.guid,
       })
-      ?.forEach((i) => {
-        const item = i as RssItem
-        const rssItem = item.data as Parser.Item
-        feed.item({
-          title: rssItem.title!,
-          description: rssItem.content!,
-          date: rssItem.pubDate!,
-          url: rssItem.link!,
-          categories: rssItem.categories,
-          enclosure: rssItem.enclosure,
-          guid: rssItem.guid,
-        })
-      })
+    })
     const headers = new Headers()
     headers.set('Content-Type', 'text/xml')
     return new NextResponse(feed.xml(), { status: 200, headers })

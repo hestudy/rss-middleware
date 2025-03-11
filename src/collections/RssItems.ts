@@ -25,6 +25,10 @@ export const RssItems: CollectionConfig = {
       type: 'textarea',
     },
     {
+      name: 'pubDate',
+      type: 'date',
+    },
+    {
       name: 'rss',
       type: 'relationship',
       relationTo: 'links',

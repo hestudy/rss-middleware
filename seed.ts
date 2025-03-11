@@ -1,9 +1,38 @@
 import config from '@payload-config'
 import { getPayload } from 'payload'
 import { exit } from 'process'
+import Parser from 'rss-parser'
 
 const seed = async () => {
   const payload = await getPayload({ config })
+
+  const noPubDateList = await payload.find({
+    collection: 'rssItems',
+    where: {
+      and: [
+        {
+          data: {
+            exists: true,
+          },
+          pubDate: {
+            exists: false,
+          },
+        },
+      ],
+    },
+    pagination: false,
+  })
+
+  for (const item of noPubDateList.docs) {
+    await payload.update({
+      collection: 'rssItems',
+      id: item.id,
+      data: {
+        pubDate: (item.data as Parser.Item).pubDate,
+      },
+    })
+  }
+
   const { totalDocs } = await payload.count({
     collection: 'prompts',
   })
