@@ -4,7 +4,6 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getPayload } from 'payload'
 import Rss from 'rss'
 import Parser from 'rss-parser'
-import dayjs from 'dayjs'
 
 const payload = await getPayload({ config })
 

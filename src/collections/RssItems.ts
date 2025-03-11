@@ -27,6 +27,7 @@ export const RssItems: CollectionConfig = {
     {
       name: 'pubDate',
       type: 'date',
+      index: true,
     },
     {
       name: 'rss',
