@@ -202,10 +202,20 @@ export default buildConfig({
       },
     ],
     shouldAutoRun: async (payload) => {
-      await payload.jobs.queue({
-        workflow: 'rss-workflow',
-        input: {},
+      const { totalDocs } = await payload.count({
+        collection: 'payload-jobs',
+        where: {
+          processing: {
+            equals: true,
+          },
+        },
       })
+      if (totalDocs === 0) {
+        await payload.jobs.queue({
+          workflow: 'rss-workflow',
+          input: {},
+        })
+      }
       return true
     },
   },
