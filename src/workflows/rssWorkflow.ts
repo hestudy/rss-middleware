@@ -1,3 +1,4 @@
+import { revalidatePath } from 'next/cache'
 import { WorkflowConfig } from 'payload'
 
 export const rssWorkflow = {
@@ -12,5 +13,7 @@ export const rssWorkflow = {
     await tasks.translateRss('translateRss', {
       input: {},
     })
+
+    revalidatePath('/admin')
   },
 } as WorkflowConfig<'rss-workflow'>

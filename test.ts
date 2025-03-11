@@ -1,15 +1,14 @@
-import config from '@payload-config'
-import { getPayload } from 'payload'
+import { getPayloadSdk } from '@/common/getPayloadSdk'
 import { exit } from 'process'
 
 const test = async () => {
-  const payload = await getPayload({ config })
-  await payload.jobs.queue({
+  const payload = await getPayloadSdk()
+  const job = await payload.jobs.queue({
     workflow: 'rss-workflow',
     input: {},
   })
-  await payload.jobs.run({
-    queue: 'rss',
+  await payload.jobs.runByID({
+    id: job.id,
   })
 }
 

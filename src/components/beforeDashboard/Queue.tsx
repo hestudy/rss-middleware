@@ -2,6 +2,7 @@ import { getPayloadSdk } from '@/common/getPayloadSdk'
 import { Pause, Play } from 'lucide-react'
 import { revalidatePath } from 'next/cache'
 import QueueButton from '../QueueButton'
+import { cn } from '@/common/cn'
 
 export default async function Queue() {
   const payload = await getPayloadSdk()
@@ -35,9 +36,11 @@ export default async function Queue() {
                 }}
               >
                 <span className="btn__content">
-                  <span className="btn__icon">
-                    {!processing && <Play className="icon size-4" />}
-                    {processing && <Pause className="icon size-4" />}
+                  <span
+                    className={cn('btn__icon', processing ? 'border-red-500' : 'border-green-500')}
+                  >
+                    {!processing && <Play className="icon size-4 text-green-500" />}
+                    {processing && <Pause className="icon size-4 text-red-500" />}
                   </span>
                 </span>
               </QueueButton>

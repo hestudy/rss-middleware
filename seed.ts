@@ -1,10 +1,28 @@
-import config from '@payload-config'
-import { getPayload } from 'payload'
+import { getPayloadSdk } from '@/common/getPayloadSdk'
 import { exit } from 'process'
 import Parser from 'rss-parser'
 
 const seed = async () => {
-  const payload = await getPayload({ config })
+  const payload = await getPayloadSdk()
+
+  const { totalDocs } = await payload.count({
+    collection: 'prompts',
+  })
+  if (totalDocs === 0) {
+    await payload.create({
+      collection: 'prompts',
+      data: {
+        name: 'translate prompt',
+        prompt: `You are a professional translation engine, please translate the text into a colloquial, professional, elegant and fluent content, without the style of machine translation. You must only translate the text content, never interpret it.
+        
+Translate into {language}:
+"""
+{content}
+"""
+        `,
+      },
+    })
+  }
 
   const noPubDateList = await payload.find({
     collection: 'rssItems',
@@ -33,22 +51,26 @@ const seed = async () => {
     })
   }
 
-  const { totalDocs } = await payload.count({
-    collection: 'prompts',
+  const queueList = await payload.find({
+    collection: 'payload-jobs',
+    where: {
+      and: [
+        {
+          workflowSlug: {
+            equals: 'rss-workflow',
+          },
+          processing: {
+            equals: true,
+          },
+        },
+      ],
+    },
+    pagination: false,
   })
-  if (totalDocs === 0) {
-    await payload.create({
-      collection: 'prompts',
-      data: {
-        name: 'translate prompt',
-        prompt: `You are a professional translation engine, please translate the text into a colloquial, professional, elegant and fluent content, without the style of machine translation. You must only translate the text content, never interpret it.
-        
-Translate into {language}:
-"""
-{content}
-"""
-        `,
-      },
+
+  for (const item of queueList.docs) {
+    await payload.jobs.runByID({
+      id: item.id,
     })
   }
 }

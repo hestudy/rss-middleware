@@ -78,7 +78,7 @@ export default buildConfig({
         })
         payload.logger.info('run rss job')
       }
-      return totalDocs === 0
+      return true
     },
   },
 })
